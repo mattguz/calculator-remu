@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora de Remuneraciones - Buk Chile</title>
+
+  <link rel="stylesheet" href="./main.min_v2.css">
+  <link rel="preload" as="style" href="./css/buk-main.css" onload="this.rel='stylesheet'">
+  <link rel="preload" as="style" href="./css/buk-grid.css" onload="this.rel='stylesheet'">
+  <link rel="preload" as="style" href="./css/utilities-spaces.css" onload="this.rel='stylesheet'">
+  <link rel="stylesheet" href="./css/custom-styles.css">
+</head>
+<body>
+  
+  <section class="remu-calc buk-py-6 buk-py-lg-4">
+    <div class="boxer">
+      <div class="buk-grid nationals-values">
+        <div class="buk-col buk-col-lg-10 buk-col-st-lg-2">
+          <h3 class="buk-mb-3">Valores nacionales</h3>
+          <div class="buk-grid">
+            <div class="buk-col buk-col-md-4 buk-col-lg-4 form-group string required person_first_name">
+              <label class="control-label string required" for="person_first_name">Sueldo Mínimo</label>
+              <div class="input-group">
+                <input class="text-input-read" required="required" type="number" min="400000" pattern="^[0-9]+"
+                  id="txtsueldo_minimo" value="400000" readonly="readonly">
+              </div>
+            </div>
+  
+            <div class="buk-col buk-col-md-4 buk-col-lg-4 form-group string required person_last_name">
+              <label class="control-label string required" for="person_last_name" id="valor_uf_lbl">Valor UF</label>
+              <div class="input-group">
+                <input class="text-input-read" required="required" aria-required="true" type="number" min="1"
+                  pattern="^[0-9]+" id="txtuf" value="0" onkeypress="calcularSueldo()" onchange="calcularSueldo()">
+              </div>
+            </div>
+  
+            <div class="buk-col buk-col-md-4 buk-col-lg-4 form-group string required person_last_name">
+              <label class="control-label string required" for="person_last_name" id="valor_utm_lbl">Valor UTM</label>
+              <div class="input-group">
+                <input class="text-input-read" required="required" aria-required="true" type="number" min="1"
+                  pattern="^[0-9]+" id="txtutm" value="0" onkeypress="calcularSueldo()" onchange="calcularSueldo()">
+              </div>
+            </div>
+  
+          </div>
+        </div>
+  
+      </div>
+  
+      <div class="buk-mt-5 buk-mt-md-6">
+        <h2 class="txt-center buk-mb-4">Calcula tu remuneración mensual</h2>
+        <div class="buk-grid">
+          <div class="buk-col buk-col-lg-10 buk-col-st-lg-2">
+            <button class="button-large button-large__color active">
+              <h5 class="txt-left">1- Haberes</h5>
+            </button>
+            <div class="panel-info show">
+              <div class="buk-grid">
+                <div class="form-group string required person_first_name buk-col buk-col-md-4 buk-col-lg-4">
+                  <label class="control-label select required">Sueldo Base *</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Tambien denominado sueldo imponible, es considerado el monto acordado con el empleador de renta,
+                      monto acordado en contrato de trabajo.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="1" pattern="^[0-9]+" id="txtsueldo_base" value="500000" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-4">
+                  <label class="control-label select required">Tipo Contrato</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Definir si se trata de un contrato a plazo fijo o plazo indefinido
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control select required" required="required" aria-required="true" id="cmbafc"
+                      onchange="calcularSueldo()">
+                      <option value="1">Plazo Fijo</option>
+                      <option value="0">Indefinido</option>
+                    </select>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-4">
+                  <label class="control-label select required">Gratificación</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Es un monto que recibe en empleado en caso que su organización obtenga utilidades líquidas, se
+                      pueden pagar devengadas mes a mes.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control select required" required="required" aria-required="true"
+                      id="cmbgratificacion" onchange="calcularSueldo()">
+                      <option value="1">Si</option>
+                      <option value="0">No</option>
+                    </select>
+                  </div>
+                </div> <!-- fin group -->
+  
+                <div class="buk-col">
+                  <h3 class="buk-mb-1">Otros campos</h3>
+                </div>
+  
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Horas Extra</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Cantidad de Horas Extras que se realizaron (En Horas)
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txthorasextras" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Comisiones</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Monto que se define con porcentaje sobre el precio de las ventas o compras o sobre el monto de otras
+                      operaciones que el empleador efectúa en conjunto con la colaboración del trabajador
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtcomisiones" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Semana Corrida</label>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtsemanacorrida" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Bonos Imponibles</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Todo Bono realizado por la empresa hacia en colaborador es imponible, es decir es considerado como
+                      un ingreso.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtbonos" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Colación</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Monto no obligatorio asignado por concepto de alimentación en la jornada laboral
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtcol" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Movilización</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Monto acordado entre empleado y empleador por concepto de transporte hacia lugar laboral
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtmovilizacion" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Asignación Familiar</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Monto que sólo se aplica en caso de estar dentro de los rangos más cercanos al sueldo mínimo, se
+                      considera un apoyo.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtasignacionfamiliar" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+  
+              </div> <!-- fin grid -->
+            </div>
+  
+          </div>
+          <div class="buk-col buk-col-lg-10 buk-col-st-lg-2">
+            <button class="button-large button-large__color">
+              <h5 class="txt-left">2- Descuentos</h5>
+            </button>
+            <div class="panel-info ">
+              <div class="buk-grid">
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <div class="tooltip">
+                    <label class="control-label select required">Días Ausente</label>
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Cantidad de días que la persona estuvo ausente en su trabajo.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control select required" required="required" aria-required="true" id="cmbausente"
+                      onchange="diasAusente()">
+                      <option value="0">No</option>
+                      <option value="1">Si</option>
+                    </select>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group string required person_first_name buk-col buk-col-md-4 buk-col-lg-3"
+                  id="column_diaslaborales" style="visibility: hidden;">
+                  <label class="control-label string required" for="person_first_name">Días Laborales</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Días que se cuentan dentro del mes (Contando fines de semana y festivos)
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" type="number" min="0" pattern="^[0-9]+"
+                      id="txtdiaslaborales" value="30" onkeypress="calcularSueldo()" onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group string required person_first_name buk-col buk-col-md-4 buk-col-lg-3"
+                  id="column_diasausente" style="visibility: hidden;">
+                  <label class="control-label string required" for="person_first_name">Días Ausente</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Cantidad de días que estuvo ausente el trabajador
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" type="number" min="0" pattern="^[0-9]+"
+                      id="txtdiasausente" value="0" onkeypress="calcularSueldo()" onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="buk-col">
+                  <h3 class="buk-mb-1">AFP y salud</h3>
+                </div>
+  
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">AFP</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Ahorro fondo de pensiones, correspondiente al 10% del sueldo imponible.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control select required" required="required" aria-required="true" id="cmbafp"
+                      onchange="calcularSueldo()">
+                      <option value="0.1144">Capital</option>
+                      <option value="0.1144">Cuprum</option>
+                      <option value="0.1127">Habitat</option>
+                      <option value="0.1116">PlanVital</option>
+                      <option value="0.1145">Provida</option>
+                      <option value="0.1058">Modelo</option>
+                      <option value="0.1069">Uno</option>
+                      <option value="0">No Cotiza</option>
+                    </select>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label string required" for="person_first_name">APV en UF</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Ahorro previsional voluntario, es un % adicional elegible por el empleado para aumentar su fondo de
+                      pensión.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtapvuf" value="0.000" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Tipo Previsión</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Hay dos tipos de previsión: Isapre (entidades privadas) y Fonasa (entidad estatal)
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <select class="form-control select required" required="required" aria-required="true"
+                      id="cmbprevision" onchange="prevision(); calcularSueldo();">
+                      <option value="Fonasa">Fonasa 7%</option>
+                      <option value="Isapre">Isapre UF</option>
+                    </select>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group string required person_first_name buk-col buk-col-md-4 buk-col-lg-3"
+                  id="column_salud" style="visibility: hidden;">
+                  <label class="control-label string required" for="person_first_name">Plan Salud en UF</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Monto en UF del plan de salud elegido por el empleado, corresponde al 7% del sueldo imponible.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" type="number" min="0" pattern="^[0-9]+" id="txtsalud"
+                      value="0.000" onkeypress="calcularSueldo()" onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="buk-col">
+                  <h3 class="buk-mb-1">Otros descuentos</h3>
+                </div>
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-6 buk-col-lg-6">
+                  <label class="control-label select required">Descuentos Legales</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Descuentos legales tales como pensión alimenticia (dictada por un juez), aportes sindicales, etc.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtdescuentoslegales" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-6 buk-col-lg-6">
+                  <label class="control-label select required">Otros Descuentos</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Corresponden a los anticipos, prestámos, aportes a la Caja de Compensación, etc.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <input class="form-control string required" required="required" aria-required="true" type="number"
+                      min="0" pattern="^[0-9]+" id="txtdescuentos" value="0" onkeypress="calcularSueldo()"
+                      onchange="calcularSueldo()">
+                  </div>
+                </div> <!-- fin group -->
+  
+              </div> <!-- fin grid -->
+            </div>
+          </div>
+          <div class="buk-col buk-col-lg-10 buk-col-st-lg-2">
+            <button class="button-large button-large__color">
+              <h5 class="txt-left">3- Valores Intermedios</h5>
+            </button>
+            <div class="panel-info ">
+              <div class="buk-grid">
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Haberes Imponibles</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Son todos los ingresos al empleado que deben pasar un descuento por cotizaciones previsionales
+                      (salud, AFP, cesantía).
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblhaberes_imponibles">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Seguro de Cesantía</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Es obligatorio y corresponde al 3% del sueldo imponible.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblseguro_cesantia">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Impuesto</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Corresponde al impuesto de segunda categoría es un tributo que se debe pagar de forma mensual por
+                      los trabajadores dependientes, este se calcula por tramos.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblimpuesto">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Gratificación</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      La gratificación es un tipo de remuneración que corresponde a la parte de las utilidades con que el
+                      empleador beneficia el sueldo del trabajador
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblgratificacion">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Descuento de AFP</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Corresponde al 10% sueldo imponible
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lbldescuento_afp">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Descuento de Salud</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Corresponde al 7% sueldo imponible
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lbldescuento_salud">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Valor Horas Extras</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Corresponde al monto correspondiente a las horas extras.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblhoras_extras">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Base Tributable</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Ingresos que estan afectos al impuesto de único de segunda categoría.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblbase_tributable">0</div>
+                  </div>
+                </div> <!-- fin group -->
+                <div class="form-group select required person_estado_civil buk-col buk-col-md-4 buk-col-lg-3">
+                  <label class="control-label select required">Haberes no Imponibles</label>
+                  <div class="tooltip">
+                    <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                      viewBox="0 0 512 512">
+                      <path
+                        d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                    </svg>
+                    <span class="tooltiptext">
+                      Montos que no se consideran remuneraciones, viaticos, movilizacion, entre otros. Es decir, son cosas
+                      que son necesarias para la jornada laboral pero puede que no sea obligatoria por ley.
+                    </span>
+                  </div>
+                  <div class="input-group">
+                    <div id="lblhaberes_noimponibles">0</div>
+                  </div>
+                </div> <!-- fin group -->
+  
+              </div> <!-- fin grid -->
+            </div>
+          </div>
+  
+        </div> <!-- fin grid container -->
+      </div>
+  
+      <div class="buk-my-3 buk-grid">
+        <div class="buk-col-2 buk-col-st-2 buk-col-md-2 buk-col-st-md-6 buk-col-lg-2 buk-col-st-lg-6">
+          <button class="btn btn--2 wi-100" onclick="calcularSueldo()">
+            Calcular
+          </button>
+        </div>
+      </div>
+  
+      <div class="buk-grid buk-pt-2">
+        <div class="buk-col">
+          <h3 class="buk-mb-3 txt-center">
+            Los montos de tu remuneración son:
+          </h3>
+        </div>
+        <div class="buk-col buk-col-lg-10 buk-col-st-lg-2">
+          <div class="buk-grid">
+            <div class="form-group buk-col buk-col-md-4 buk-col-lg-4 liquid-salary" data-calculator="results">
+              <label class="control-label select required">Sueldo Líquido Calculado</label>
+              <div class="tooltip">
+                <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                </svg>
+                <span class="tooltiptext">
+                  Es lo que finalmente recibirás, corresponde a la Sueldo Líquido = Total Haberes - Descuentos
+                </span>
+              </div>
+              <div class="input-group">
+                <div class="total" id="lblliquido" type="number" min="0" pattern="^[0-9]+">0</div>
+              </div>
+            </div> <!-- fin group -->
+            <div class="form-group buk-col buk-col-md-4  buk-col-lg-4 " data-calculator="results">
+              <label class="control-label select required">Total Haberes</label>
+              <div class="tooltip">
+                <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                </svg>
+                <span class="tooltiptext">
+                  Es la suma de todos los haberes recibidos (sean imponibles o no), y es lo mismo que decir sueldo bruto.
+                </span>
+              </div>
+              <div class="input-group">
+                <div id="lbltotal_haberes">0</div>
+              </div>
+            </div> <!-- fin group -->
+            <div class="form-group buk-col buk-col-md-4 buk-col-lg-4" data-calculator="results">
+              <label class="control-label select required">Descuentos</label>
+              <div class="tooltip">
+                <svg class="tooltip-trigger" xmlns="http://www.w3.org/2000/svg" style="font-size:24px" height="15"
+                  viewBox="0 0 512 512">
+                  <path
+                    d="M256 512c141.4 0 256-114.6 256-256S397.4 0 256 0S0 114.6 0 256S114.6 512 256 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-144c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z" />
+                </svg>
+                <span class="tooltiptext">
+                  Corresponde a todos los descuentos que se realizan al total haberes.
+                </span>
+              </div>
+              <div class="input-group">
+                <div id="lbltotal_descuentos" type="number" min="0" pattern="^[0-9]+">0</div>
+              </div>
+            </div> <!-- fin group -->
+  
+          </div> <!-- fin grid -->
+        </div> <!-- fin wrapper col -->
+  
+      </div> <!-- fin grid -->
+  
+    </div> <!-- fin boxer -->
+  
+  </section>
+
+  <script>
+    const acc = document.getElementsByClassName("button-large ");
+    let i;
+    for (i = 0; i < acc.length; i++) {
+      acc[i].onclick = function () {
+        let active = document.querySelector(".button-large.active");
+        if (active && active != this) {
+          active.classList.remove("active");
+          active.nextElementSibling.classList.remove("show");
+        }
+        this.classList.toggle("active");
+        this.nextElementSibling.classList.toggle("show");
+      }
+    }  
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js" defer></script>
+  <script src="./calculadora_v4.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+.button-large {
+  display: flex;
+  display: -ms-flexbox;
+  -ms-flex-pack: justify;
+  -ms-flex-align: center;
+  align-items: center;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.16);
+  cursor: pointer;
+  width: 100%;
+  padding: 10px 10px 10px 20px;
+  border: 0px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 12px 0px 0px;
+  font-weight: 600;
+  /*line-height: 30px; */
+  border-radius: 12px
+}
+
+.button-large__color {
+  background-color: var(--color-white);
+  color: var(--color-primary);
+  font-size: 1.75rem;
+}
+
+.button-large__color:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+}
+
+.button-large:after {
+  border-radius: 12px 12px 0px 0px
+}
+
+.button-large:after {
+  -webkit-transition: .6s ease-in-out;
+  -o-transition: .6s ease-in-out;
+  transition: .6s ease-in-out;
+  content: '\2212';
+  color: #fff0;
+  position: relative;
+  width: 28px;
+  background: url(https://www.buk.cl/hubfs/2022/Chile/Vector-1.png) #fff;
+  background-position: center center;
+  background-repeat: no-repeat;
+  margin-left: auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.button-large.active:after {
+  content: " \002B";
+  transform: rotate(180deg);
+}
+
+.button-large.active {
+  border-radius: 12px 12px 0px 0px;
+  background-color: var(--color-primary);
+  color: var(--color-white) !important;
+  box-shadow: 0px -3px 4px rgb(0 0 0 / 16%)
+}
+
+.panel-info {
+  background-color: #dae5fa5c;
+  max-height: 0px;
+  overflow: hidden;
+  -webkit-transition: .6s ease-in-out;
+  -o-transition: .6s ease-in-out;
+  transition: .6s ease-in-out;
+  opacity: 0;
+  width: 100%;
+  border-radius: 0px 0px 12px 12px;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.16);
+}
+
+.panel-info.show {
+  opacity: 1;
+  max-height: 800px;
+  padding: 10px 20px 30px;
+}
+
+@media only screen and (min-width: 767px) {
+  .button-large {
+    padding: 10px 40px 10px 30px;
+  }
+}
+
+/* Fix styles */
+body {
+  font-size: 1rem !important;
+  overflow-y: initial !important;
+}
+
+h5 {
+  color: inherit !important;
+  font-weight: bold !important;
+}
+
+.btn {
+  line-height: initial !important;
+  text-transform: initial !important;
+  white-space: initial !important;
+}
+
+.btn-primary {
+  height: initial !important;
+}
+
+.buk-preheader li.active {
+  background: initial !important;
+}
+
+.box-body {
+  overflow-x: hidden !important;
+}
+
+.panel-info.show {
+  overflow: initial;
+  max-height: 3000px;
+}
+
+label {
+  margin-bottom: .75rem !important;
+}
+
+.nationals-values .form-group label.control-label {
+  font-weight: 600;
+  color: var(--font-color-primary);
+}
+
+.nationals-values input.text-input-read {
+  background: var(--bg-cta-mobile);
+  font-size: 1.063rem;
+  font-family: var(--font-family-body);
+}
+
+.form-group .control-label {
+  font-size: .938rem !important;
+}
+
+.buk-grid .tooltip {
+  margin-left: 8px;
+  transform: translateY(-1px);
+}
+
+.buk-grid .tooltip .tooltiptext {
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 6px 4px;
+}
+
+.tooltip svg {
+  fill: var(--color-primary);
+}
+
+[data-calculator="results"] {
+  background: var(--color-quaternary);
+  border: 4px solid var(--color-white);
+  border-radius: 10px;
+  box-shadow: var(--shadow-3);
+  padding: 11px 24px 12px;
+
+}
+
+[data-calculator="results"].liquid-salary {
+  background: var(--color-primary);
+  color: var(--color-white);
+}
+
+[data-calculator="results"].liquid-salary label {
+  color: var(--color-white);
+}
+
+[data-calculator="results"].liquid-salary svg {
+  fill: var(--color-white);
+}

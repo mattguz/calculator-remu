@@ -10,6 +10,7 @@ function diasAusente() {
     if (document.getElementById("column_diasausente").style.visibility == "visible")
         document.getElementById("column_diasausente").style.visibility = "hidden";
     else document.getElementById("column_diasausente").style.visibility = "visible";
+    calcularSueldo()
 }
 
 function prevision() {
@@ -40,7 +41,7 @@ function calcularSueldo() {
                     parseFloat(
                         document.getElementById("txtdiasausente").value
                     ))) /
-                parseFloat(document.getElementById("txtdiaslaborales").value)
+            parseFloat(document.getElementById("txtdiaslaborales").value)
         );
     // Gratificación
     let gratificacion = 0;
@@ -53,8 +54,8 @@ function calcularSueldo() {
     // Valor Horas Extras
     const horasExtra = Math.round(
         sueldoBase *
-            0.0077777 *
-            parseFloat(document.getElementById("txthorasextras").value)
+        0.0077777 *
+        parseFloat(document.getElementById("txthorasextras").value)
     );
     document.getElementById("lblhoras_extras").innerHTML =
         horasExtra.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
@@ -86,7 +87,7 @@ function calcularSueldo() {
     // Descuento AFP
     const descuentoAFP = Math.round(
         Math.min(topeAfp, haberesImponibles) *
-            parseFloat(document.getElementById("cmbafp").value)
+        parseFloat(document.getElementById("cmbafp").value)
     );
     document.getElementById("lbldescuento_afp").innerHTML =
         descuentoAFP.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
@@ -95,7 +96,7 @@ function calcularSueldo() {
     if (document.getElementById("cmbprevision").value == "Isapre")
         descuentoSalud = Math.round(
             parseFloat(document.getElementById("txtuf").value) *
-                parseFloat(document.getElementById("txtsalud").value)
+            parseFloat(document.getElementById("txtsalud").value)
         );
     else
         descuentoSalud = Math.round(
@@ -112,7 +113,7 @@ function calcularSueldo() {
         parseFloat(document.getElementById("txtdescuentoslegales").value) -
         Math.round(
             parseFloat(document.getElementById("txtapvuf").value) *
-                parseFloat(document.getElementById("txtuf").value)
+            parseFloat(document.getElementById("txtuf").value)
         );
     document.getElementById("lblbase_tributable").innerHTML =
         baseTributable.toLocaleString('es-CL', { style: 'currency', currency: 'CLP' });
